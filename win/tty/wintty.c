@@ -33,6 +33,11 @@ extern void msmsg(const char *, ...);
 
 #include "wintty.h"
 
+#ifdef UNIX
+#include <fcntl.h>
+#include <sys/select.h>
+#endif
+
 #if defined(CLIPPING) && !defined(NO_SIGNAL)
 #include <signal.h>
 #ifdef SIGWINCH
@@ -4042,6 +4047,92 @@ tty_raw_print_bold(const char *str)
 #endif
 }
 
+#ifdef UNIX
+/* Arrow keys arrive as ESC [ A or ESC O A. A bare ESC at the role
+   prompt quits the game, so recognize the sequence and turn it into
+   the movement key for the current number_pad setting. */
+static int
+tty_nb_getchar(void)
+{
+    int fd = fileno(stdin);
+    int fl = fcntl(fd, F_GETFL, 0);
+    int ch;
+
+    if (fl < 0)
+        return EOF;
+    (void) fcntl(fd, F_SETFL, fl | O_NONBLOCK);
+    ch = getchar();
+    (void) fcntl(fd, F_SETFL, fl);
+    if (ch == EOF)
+        clearerr(stdin);
+    return ch;
+}
+
+static int
+tty_decode_arrow(int ch)
+{
+    int fd, n, c, dir, mapped;
+    char seq[16];
+    const char *dirs;
+    fd_set fds;
+    struct timeval tv;
+
+    if (ch != '\033')
+        return ch;
+    c = tty_nb_getchar();
+    if (c == EOF) {
+        fd = fileno(stdin);
+        FD_ZERO(&fds);
+        FD_SET(fd, &fds);
+        tv.tv_sec = 0;
+        tv.tv_usec = 40000;
+        if (select(fd + 1, &fds, (fd_set *) 0, (fd_set *) 0, &tv) <= 0)
+            return '\033';
+        c = getchar();
+        if (c == EOF) {
+            clearerr(stdin);
+            return '\033';
+        }
+    }
+    n = 0;
+    seq[n++] = (char) c;
+    while (n < (int) (sizeof seq) - 1) {
+        int last = seq[n - 1];
+
+        if ((last >= 'A' && last <= 'Z') || (last >= 'a' && last <= 'z')
+            || last == '~')
+            break;
+        c = tty_nb_getchar();
+        if (c == EOF)
+            break;
+        seq[n++] = (char) c;
+    }
+    if ((seq[0] != '[' && seq[0] != 'O') || n < 2)
+        return '\033';
+    switch (seq[n - 1]) {
+    case 'A':
+        dir = DIR_N;
+        break;
+    case 'B':
+        dir = DIR_S;
+        break;
+    case 'C':
+        dir = DIR_E;
+        break;
+    case 'D':
+        dir = DIR_W;
+        break;
+    default:
+        return '\033';
+    }
+    dirs = gc.Cmd.dirchars;
+    if (!dirs || !dirs[dir])
+        dirs = "hykulnjb><";
+    mapped = (unsigned char) dirs[dir];
+    return mapped ? mapped : 'k';
+}
+#endif /* UNIX */
+
 int
 tty_nhgetch(void)
 {
@@ -4078,6 +4169,8 @@ tty_nhgetch(void)
               ? tgetch()
               : ((read(fileno(stdin), (genericptr_t) &nestbuf, 1) == 1)
                  ? (int) nestbuf : EOF);
+        if (i == '\033')
+            i = tty_decode_arrow(i);
 #else
         i = tgetch();
 #endif
