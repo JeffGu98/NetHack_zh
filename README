@@ -1,6 +1,24 @@
          NetHack 5.0.1 -- General information
 
 
+简体中文（本 fork）
+
+在 macOS 终端里，于本仓库根目录运行：
+
+    ./play.sh
+
+第一次会编译并安装到 ~/nethackdir，启动命令在 ~/bin/nethack。
+若配置里还没有语言选项，脚本会写入 OPTIONS=language:zh。
+之后再运行 ./play.sh 会直接进入游戏。
+
+更新代码后若要重装：
+
+    ./play.sh --install
+
+重装会清空 ~/nethackdir，存档在其中的 save/ 目录，重装前请先备份。
+改回英文：把配置里的语言行改成 OPTIONS=language:en，或删掉它。
+
+
 NetHack 5.0 is an enhancement to the dungeon exploration game NetHack,
 which is a distant descendent of Rogue and Hack, and a direct descendent
 of NetHack 3.6.
