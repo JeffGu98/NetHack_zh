@@ -11,6 +11,18 @@ if [ "$(uname -s)" != "Darwin" ]; then
     exit 1
 fi
 
+if [ "$(id -u)" -eq 0 ]; then
+    echo "不要用 sudo 运行。用 root 安装后游戏读不到你的 OPTIONS=language:zh。" >&2
+    exit 1
+fi
+
+if [ -d "$HOME/nethackdir" ] && [ ! -w "$HOME/nethackdir" ]; then
+    echo "游戏目录 $HOME/nethackdir 不属于当前用户，所以启动会落到英文。" >&2
+    echo "在终端执行下面这一行，输入你的登录密码，然后再运行 ./play.sh：" >&2
+    echo "  sudo chown -R \"$(id -un):$(id -gn)\" \"$HOME/nethackdir\" \"$HOME/.nethackrc\"" >&2
+    exit 1
+fi
+
 do_install=0
 if [ "$1" = "--install" ]; then
     do_install=1
