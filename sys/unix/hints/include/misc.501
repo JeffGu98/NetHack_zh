@@ -71,8 +71,14 @@ MAN2TXTPRE = -T ascii
 MAN2TXTPOST= | col -b
 else
 #
-# Detect groff.
-NROFFISGROFF := $(shell echo `nroff --version | grep -c 'GNU.*groff.*version'`)
+# Detect groff. Man pages are optional; skip the probe when nroff
+# is not installed so a normal game build stays quiet.
+NROFF_PRESENT := $(shell command -v nroff >/dev/null 2>&1 && echo yes)
+ifeq "$(NROFF_PRESENT)" "yes"
+NROFFISGROFF := $(shell nroff --version 2>/dev/null | grep -c 'GNU.*groff.*version')
+else
+NROFFISGROFF := 0
+endif
 #$(info NROFFISGROFF=$(NROFFISGROFF))
 ifneq "$(NROFFISGROFF)" "0"
 # Gather groff's minor version number (register `.y`).
@@ -89,7 +95,9 @@ endif  # end groff less than 1.23
 endif  # end NROFFISGROFF
 # $(info NROFF_FLAGS=$(NROFF_FLAGS))
 
-ifneq "$(NROFFISGROFF)" ""   # It's groff
+# macOS ships GNU make 3.81, which treats ifneq "0" "" as true.
+ifeq "$(NROFFISGROFF)" "0"
+else
 # add the -Tascii flag used by groff
 MAN2TXTPRE += -Tascii
 # nroff in groff 1.23 supports the -P option to pass arguments to the
