@@ -20,6 +20,14 @@ ATTRNORETURN static void xexit(int) NORETURN;
 ATTRNORETURN extern void panic(const char *, ...) NORETURN;
 FILE *fopen_datafile(const char *, const char *, int);
 
+/* dlb.c reloads the catalog after the library opens. The game defines
+   the real function in files.c. This librarian does not select a language. */
+extern void nh_lang_reload(void);
+void
+nh_lang_reload(void)
+{
+}
+
 #ifdef DLB
 #ifdef DLBLIB
 static void grow_ld(libdir **, int *, int);

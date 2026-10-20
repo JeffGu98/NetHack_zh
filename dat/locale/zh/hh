@@ -1,0 +1,129 @@
+y k u   7 8 9   移动：
+ \|/     \|/            yuhjklbn：朝该方向走一格
+h-.-l   4-.-6           YUHJKLBN：走到撞上东西为止
+ /|\     /|\            g 加方向：跑到看见值得注意的东西
+b j n   1 2 3           G 或 Ctrl 加方向：同上，岔路不算
+      数字键盘          m 加方向：移动，不捡东西也不攻击
+ <  向上               F 加方向：即使没感觉到怪物也攻击
+ >  向下
+        打开 number_pad 后，用数字键移动。
+        5 当作 G；设为 2 时，5 当作 g。
+        设为 3 时，1、2、3 和 7、8、9 对调。
+        设为 -1 时仍用字母，但 y 和 z 对调。
+
+常用命令：
+?     help      显示一份说明
+#quit quit      不保存，结束这局
+S     save      保存并退出。再用同一角色名即读档
+!     sh        若允许，进入外壳。exit 回到游戏
+^Z    suspend   暂停。Unix 上用 fg 继续
+O     options   设置选项
+/     what-is   这个地图符号是什么
+\     known     列出已经发现的东西
+v     chronicle 重要事件
+V     version   版本号
+^A    again     重复上一条命令
+^R    redraw    重画屏幕
+^P    prevmsg   重复先前的消息。连续按会更早
+#               扩展命令。#? 列出它们
+&     what-does 这个按键做什么
+
+^ 加字母表示按住 Ctrl 再按该字母。^D 和 ^d 相同。
+游戏把 ^[ 当作 Esc。^_ 是 #retravel。
+
+游戏命令：
+^D    kick      踢门或其他东西
+^T    Tport     若能够，就传送
+^X    show      显示属性
+a     apply     使用工具（镐、钥匙、相机等）
+A     takeoffall 一次脱下多件护甲、饰品，或放下武器
+c     close     关门
+C     call      给怪物、某一件或某一类物品起名
+d     drop      丢弃。d7a 丢掉物品 a 的七件
+D     Drop      按种类丢弃
+e     eat       吃东西
+E     engrave   在地上刻字。E- 用手指
+f     fire      从箭袋发射
+F     fight     先选方向再攻击
+i     invent    列出背包
+I     Invent    只列出一部分。例如 I( 列出工具，
+                I" 列出护身符，IB 列出已知祝福的，
+                IU 未诅咒，IC 诅咒，IX 未知祝福状态，
+                Iu 在店里列出未付款的，Ix 列出账单
+o     open      开门
+p     pay       付账
+P     puton     戴戒指、护身符等。也可穿甲
+q     quaff     喝药水或水
+Q     quiver    选择箭袋弹药。退出请用 #quit
+r     read      读卷轴或魔法书
+R     remove    取下饰品。也可脱甲
+s     search    搜索秘密门、隐藏陷阱和怪物
+t     throw     投掷或射击
+T     takeoff   脱甲。也可取下饰品
+w     wield     装备武器。w- 空手
+W     wear      穿甲。也可戴饰品
+x     xchange   交换主手和副手
+X     twoweapon 若职业允许，切换双持
+z     zap       使用魔杖。number_pad 为 -1 时用 y
+Z     Zap       施法。number_pad 为 -1 时用 Y
+<     up        上楼
+>     down      下楼
+^     trap_id   辨认已经发现的陷阱
+),[,=,",(       查看该符号对应的装备
+*               一次查看上面这几类装备
+$     gold      数金币
++     spells    列出并整理法术
+`     classkn   查看某一类已发现的物品
+_     travel    沿最短路径走到地图上的一点
+^_    retravel  继续走向刚才的目的地
+.     rest      等待一回合
+,     pickup    尽量捡起
+@               开关自动捡起
+:     look      看脚下
+;     farlook   看地图上的另一处。怪物站在物品上时，
+                只描述怪物。一堆物品只描述最上面一件
+
+有 Meta（有的键盘是 Alt）时，Meta 加字母等于 # 命令。
+Meta 区分大小写。M-a 和 M-A 不同。
+
+M-?             扩展命令帮助
+M-2   twoweapon 切换双持（number_pad 打开时除外）
+M-a   adjust    调整背包字母
+M-A   annotate  给这一层写一行注记
+M-c   chat      交谈
+M-C   conduct   查看挑战
+M-d   dip       把一件东西浸入另一件
+M-e   enhance   查看并提高武器和法术技能
+M-f   force     撬锁
+M-g   genocided 列出已被灭族或绝迹的怪物
+M-i   invoke    发动物品的特殊能力
+M-j   jump      跳到另一格
+M-l   loot      搜刮地上的箱子
+M-m   monster   变形后使用该怪物的能力
+M-n   name      起名。和 C 相同
+M-N   name      同 M-n
+M-o   offer     献祭
+M-O   overview  看过的层和注记
+M-p   pray      祈祷
+M-q   quit      不保存并结束。保存用 S
+M-r   rub       摩擦灯或石头
+M-R   ride      骑上或下来
+M-s   sit       坐下
+M-t   turn      若职业允许，驱散亡灵
+M-T   tip       倒空容器
+M-u   untrap    解除陷阱
+M-V   vanquished 列出消灭过的怪物
+M-v   version   显示编译选项
+M-w   wipe      擦脸
+M-X   explore   转入不计分的探索模式
+
+number_pad 打开时，这些键不再用于移动：
+n               后面跟次数，重复下一条命令
+h     help      帮助，和 ? 一样
+j     jump      跳跃
+k     kick      踢
+l     loot      搜刮箱子
+N     name      起名
+u     untrap    解除陷阱
+
+调试模式（巫师模式）里还有更多命令。

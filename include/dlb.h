@@ -76,6 +76,7 @@ typedef struct dlb_handle {
 #endif
 
 boolean dlb_init(void);
+boolean dlb_active(void);
 void dlb_cleanup(void);
 
 dlb *dlb_fopen(const char *, const char *);
@@ -143,5 +144,10 @@ long rsrc_dlb_ftell(dlb *dp);
 #define RDBMODE "r"
 #define WRBMODE "w+"
 #endif
+
+/* Open a player text file. In Chinese mode, locale/zh/<name> is tried
+   first for the known help and random-text basenames. Any other name,
+   or a missing translation, opens the original file. */
+dlb *nh_dlb_fopen(const char *, const char *);
 
 #endif /* DLB_H */

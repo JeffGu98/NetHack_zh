@@ -1058,7 +1058,7 @@ mswin_display_file(const char *filename, boolean must_exist)
 
     logDebug("mswin_display_file(%s, %d)\n", filename, must_exist);
 
-    f = dlb_fopen(filename, RDTMODE);
+    f = nh_dlb_fopen(filename, RDTMODE);
     if (!f) {
         if (must_exist) {
             TCHAR message[90];

@@ -445,7 +445,187 @@ fopen_datafile(const char *filename, const char *mode, int prefix)
     fp = fopen(filename, mode);
     return fp;
 }
+
+static boolean
+nh_slurp_fp(FILE *fp, char **out)
+{
+    char *buf;
+    size_t cap = 8192, n = 0;
+
+    buf = (char *) malloc(cap);
+    if (!buf)
+        return FALSE;
+    for (;;) {
+        size_t got;
+
+        if (n + 4096 + 1 > cap) {
+            char *grown = (char *) realloc(buf, cap * 2);
+
+            if (!grown) {
+                free(buf);
+                return FALSE;
+            }
+            buf = grown;
+            cap *= 2;
+        }
+        got = fread(buf + n, 1, 4096, fp);
+        n += got;
+        if (got < 4096)
+            break;
+    }
+    buf[n] = '\0';
+    *out = buf;
+    return TRUE;
+}
+
+static boolean
+nh_slurp_dlb(dlb *dp, char **out)
+{
+    char *buf;
+    size_t cap = 8192, n = 0;
+
+    buf = (char *) malloc(cap);
+    if (!buf)
+        return FALSE;
+    for (;;) {
+        int got;
+
+        if (n + 4096 + 1 > cap) {
+            char *grown = (char *) realloc(buf, cap * 2);
+
+            if (!grown) {
+                free(buf);
+                return FALSE;
+            }
+            buf = grown;
+            cap *= 2;
+        }
+        got = dlb_fread(buf + n, 1, 4096, dp);
+        if (got < 0)
+            got = 0;
+        n += (size_t) got;
+        if (got < 4096)
+            break;
+    }
+    buf[n] = '\0';
+    *out = buf;
+    return TRUE;
+}
+
+/* Load or drop the Chinese catalog to match the current language. */
+void
+nh_lang_reload(void)
+{
+    FILE *fp;
+    dlb *dp = (dlb *) 0;
+    char *buf = (char *) 0;
+    boolean loaded = FALSE;
+
+    iflags.lang = (uchar) nh_lang_id();
+    if (!nh_lang_is_zh()) {
+        nh_lang_free();
+        return;
+    }
+
+    fp = fopen_datafile("locale/zh.txt", "r", DATAPREFIX);
+    if (!fp)
+        fp = fopen("dat/locale/zh.txt", "rb");
+    if (fp) {
+        if (nh_slurp_fp(fp, &buf))
+            loaded = nh_lang_load_mem(buf);
+        fclose(fp);
+        free(buf);
+        if (loaded)
+            return;
+        buf = (char *) 0;
+    }
+
+    dp = dlb_fopen("locale/zh.txt", "r");
+    if (!dp)
+        dp = dlb_fopen("zh.txt", "r");
+    if (!dp)
+        return;
+    if (nh_slurp_dlb(dp, &buf))
+        (void) nh_lang_load_mem(buf);
+    free(buf);
+    (void) dlb_fclose(dp);
+}
+
+static boolean
+nh_locale_basename(const char *name)
+{
+    static const char *const names[] = {
+        "help",    "hh",      "cmdhelp", "opthelp", "optmenu", "keyhelp",
+        "usagehlp", "rumors", "oracles", "data",    "engrave", "epitaph",
+        (const char *) 0
+    };
+    int i;
+
+    if (!name || !*name || strchr(name, '/'))
+        return FALSE;
+    for (i = 0; names[i]; i++)
+        if (!strcmp(name, names[i]))
+            return TRUE;
+    return FALSE;
+}
+
+/* Chinese copy first. Missing translation opens the English file. */
+dlb *
+nh_dlb_fopen(const char *name, const char *mode)
+{
+    if (nh_lang_is_zh() && nh_locale_basename(name)) {
+        char buf[BUFSZ];
+        dlb *fp;
+
+        Sprintf(buf, "locale/zh/%s", name);
+        fp = dlb_fopen(buf, mode);
+        if (fp)
+            return fp;
+#ifdef DLB
+        if (dlb_active()) {
+            FILE *plain;
+
+            Sprintf(buf, "dat/locale/zh/%s", name);
+            plain = fopen(buf, "r");
+            if (plain) {
+                dlb *dp = (dlb *) alloc(sizeof (dlb));
+
+                dp->fp = plain;
+#ifdef DLBLIB
+                dp->lib = (library *) 0;
+                dp->start = 0L;
+                dp->size = 0L;
+                dp->mark = 0L;
+#endif
+#ifdef DLBRSRC
+                dp->fd = -1;
+#endif
+                return dp;
+            }
+        }
+#else /* !DLB */
+        Sprintf(buf, "dat/locale/zh/%s", name);
+        fp = fopen(buf, mode);
+        if (fp)
+            return fp;
+#endif
+    }
+    return dlb_fopen(name, mode);
+}
 #endif /* !SFCTOOL */
+
+#ifdef SFCTOOL
+void
+nh_lang_reload(void)
+{
+}
+
+dlb *
+nh_dlb_fopen(const char *name, const char *mode)
+{
+    return dlb_fopen(name, mode);
+}
+#endif
 
 /* ----------  EXTERNAL FILE SUPPORT ----------- */
 

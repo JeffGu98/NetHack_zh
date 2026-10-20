@@ -1,0 +1,62 @@
+这是 nethack 命令行参数的简要说明，
+以 Unix（含 Linux 和 macOS）为准。
+
+启动时若这个角色名已有存档，就读档；
+否则用这个名字开一局新游戏。
+
+nethack
+  没有参数。角色名来自配置里的
+  OPTIONS=name:角色名。没写则用系统用户名。
+
+nethack -u 角色名 [-X 或 -D]
+  -u 指定本局角色名。u 必须小写，
+  和名字之间的空格可以省略。
+  -X 探索模式，不计分。角色带着许愿魔杖，
+  死亡时可以选择被救活并继续。X 必须大写。
+  -D 调试模式，也叫巫师模式。D 必须大写。
+  若不允许，会改成 -X。若允许，角色名变为 wizard。
+
+  名字后面可以用连字符写职业、种族、性别、阵营，
+  例如 -u Conan-Bar-Hum-Mal-Neu 或 -u Tim-Wiz。
+  每一段至少三个字母，长短写都可以。
+
+nethack -p Ppp -r Rrr [-@]
+  -p 指定职业，例如 Val 表示女武神。
+  p 本身小写，后面的字母不区分大小写。
+  -r 指定种族：Hum、Elf、Orc、Dwa、Gno。
+  -@ 不再询问。命令行和配置都没写的
+  职业、种族、性别、阵营会随机决定。
+  @ 可能需要写成 \@。
+
+  旧写法仍然可用：-A 或 -Arc ，-B 或 -Bar ，
+  -C 或 -Cav ，-H 或 -Hea ，-K 或 -Kni ，
+  -M 或 -Mon ，-P 或 -Pri ，-Ran ，
+  -R 或 -Rog ，-S 或 -Sam ，-T 或 -Tou ，
+  -V 或 -Val ，-W 或 -Wiz 。
+  单字母必须大写。游侠没有单字母。
+
+nethack -DEC[graphics]
+nethack -IBM[graphics]
+  选用 DEC 或 IBM 符号集在文字地图上画线。
+  两者互斥。至少要写三个字母。
+
+nethack -wIii
+nethack --windowtype:Iii
+  Iii 可以是 tty、curses、X11 或 Qt。
+  只有编译进了多个界面时才有用。
+  #version 可以看到编译了哪些。
+  它覆盖配置里的 OPTIONS=windowtype 。
+  -w 和 --windowtype 必须小写。
+
+nethack -n
+  即使目录里有 news，也不显示。
+
+nethack --nethackrc:配置文件
+  改用这份配置，而不是默认的 ~/.nethackrc 。
+  文件不在游戏目录时要写完整路径。
+nethack --no-nethackrc
+  完全不读配置。
+
+  语言写在配置里：OPTIONS=language:zh
+  也可以写成 OPTIONS=lang:zh 。
+  不写则是英语。zh_CN、chinese、中文 都表示简体中文。

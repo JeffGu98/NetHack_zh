@@ -701,7 +701,7 @@ curses_view_file(const char *filename, boolean must_exist)
     anything Id;
     char buf[BUFSZ];
     menu_item *selected = NULL;
-    dlb *fp = dlb_fopen(filename, "r");
+    dlb *fp = nh_dlb_fopen(filename, "r");
     int clr = NO_COLOR;
 
     if (fp == NULL) {

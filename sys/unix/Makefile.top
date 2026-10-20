@@ -90,6 +90,12 @@ VARDAT = $(VARDATD) $(VARDATND)
 #
 
 DATHELP = help hh cmdhelp keyhelp history opthelp optmenu usagehlp wizhelp
+# Chinese copies. Basenames are locale/zh/<english name>. Missing files
+# are skipped by the game and the English original is opened instead.
+DATZH = locale/zh.txt locale/zh/help locale/zh/hh locale/zh/cmdhelp \
+	locale/zh/keyhelp locale/zh/opthelp locale/zh/optmenu \
+	locale/zh/usagehlp locale/zh/rumors locale/zh/oracles \
+	locale/zh/engrave locale/zh/epitaph
 
 SPEC_LEVS = asmodeus.lua baalz.lua bigrm-*.lua castle.lua fakewiz?.lua \
 	juiblex.lua knox.lua medusa-?.lua minend-?.lua minefill.lua \
@@ -99,7 +105,7 @@ SPEC_LEVS = asmodeus.lua baalz.lua bigrm-*.lua castle.lua fakewiz?.lua \
 QUEST_LEVS = ???-goal.lua ???-fil?.lua ???-loca.lua ???-strt.lua
 
 DATNODLB = $(VARDATND) license symbols
-DATDLB = $(DATHELP) dungeon.lua tribute $(SPEC_LEVS) $(QUEST_LEVS) $(VARDATD)
+DATDLB = $(DATHELP) $(DATZH) dungeon.lua tribute $(SPEC_LEVS) $(QUEST_LEVS) $(VARDATD)
 DAT = $(DATNODLB) $(DATDLB)
 
 # These get set only if they weren't already set above or in a hints file

@@ -393,6 +393,7 @@ staticfn int handler_autounlock(int);
 staticfn int handler_disclose(void);
 staticfn int handler_menu_headings(void);
 staticfn int handler_menu_objsyms(void);
+staticfn int handler_language(void);
 staticfn int handler_menustyle(void);
 staticfn int handler_msg_window(void);
 staticfn int handler_number_pad(void);
@@ -1901,6 +1902,77 @@ optfn_horsename(
     char *opts, char *op)
 {
     return petname_optfn(optidx, req, negated, opts, op);
+}
+
+staticfn int
+handler_language(void)
+{
+    winid tmpwin;
+    anything any;
+    menu_item *pick = (menu_item *) 0;
+    int n, clr = NO_COLOR;
+    int cur = nh_lang_id();
+
+    tmpwin = create_nhwindow(NHW_MENU);
+    start_menu(tmpwin, MENU_BEHAVE_STANDARD);
+    any = cg.zeroany;
+    any.a_int = LANG_EN + 1;
+    add_menu(tmpwin, &nul_glyphinfo, &any, 'e', 0, ATR_NONE, clr, "en  English",
+             (cur == LANG_EN) ? MENU_ITEMFLAGS_SELECTED : MENU_ITEMFLAGS_NONE);
+    any.a_int = LANG_ZH + 1;
+    add_menu(tmpwin, &nul_glyphinfo, &any, 'z', 0, ATR_NONE, clr,
+             "zh  Simplified Chinese",
+             (cur == LANG_ZH) ? MENU_ITEMFLAGS_SELECTED : MENU_ITEMFLAGS_NONE);
+    end_menu(tmpwin, "Select language:");
+    n = select_menu(tmpwin, PICK_ONE, &pick);
+    if (n > 0) {
+        int id = pick[0].item.a_int - 1;
+
+        if (n > 1 && id == cur)
+            id = pick[1].item.a_int - 1;
+        (void) nh_lang_set(id == LANG_ZH ? "zh" : "en");
+        iflags.lang = (uchar) nh_lang_id();
+        nh_lang_reload();
+        free((genericptr_t) pick);
+    }
+    destroy_nhwindow(tmpwin);
+    if (n > 0 || flags.verbose)
+        pline("Language is \"%s\".", nh_lang_name());
+    return optn_ok;
+}
+
+staticfn int
+optfn_language(
+    int optidx, int req, boolean negated,
+    char *opts, char *op)
+{
+    if (req == do_init) {
+        return optn_ok;
+    }
+    if (req == do_set) {
+        if (negated) {
+            config_error_add("The %s option may not be negated.",
+                             allopt[optidx].name);
+            return optn_err;
+        }
+        op = string_for_opt(opts, FALSE);
+        if (op == empty_optstr)
+            return optn_err;
+        if (!nh_lang_set(op)) {
+            config_error_add("Unknown language '%s'", op);
+            return optn_err;
+        }
+        iflags.lang = (uchar) nh_lang_id();
+        nh_lang_reload();
+        return optn_ok;
+    }
+    if (req == get_val || req == get_cnf_val) {
+        Sprintf(opts, "%s", nh_lang_name());
+        return optn_ok;
+    }
+    if (req == do_handler)
+        return handler_language();
+    return optn_ok;
 }
 
 staticfn int

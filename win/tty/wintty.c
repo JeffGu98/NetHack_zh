@@ -2467,7 +2467,7 @@ tty_display_file(
         char *cr;
 
         tty_clear_nhwindow(WIN_MESSAGE);
-        f = dlb_fopen(fname, "r");
+        f = nh_dlb_fopen(fname, "r");
         if (!f) {
             if (complain) {
                 home();

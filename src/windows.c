@@ -1540,7 +1540,7 @@ void
 genl_display_file(const char *fname, boolean complain)
 {
     char buf[BUFSZ];
-    dlb *f = dlb_fopen(fname, "r");
+    dlb *f = nh_dlb_fopen(fname, "r");
 
     if (!f) {
         if (complain) /* send complaint to stdout rather than to stderr */
@@ -1808,6 +1808,10 @@ add_menu(
     /* this is the only function that cared about this flag; remove it now */
     itemflags &= ~MENU_ITEMFLAGS_SKIPMENUCOLORS;
 
+    /* Color patterns stay on the English text. The window shows the
+       translation, or the original when this string has no entry. */
+    str = nh_tr(str);
+
     (*windowprocs.win_add_menu)(window, glyphinfo, identifier,
                                 ch, gch, attr, color, str, itemflags);
 }
@@ -1888,6 +1892,9 @@ getlin(const char *query, char *bufp)
     }
     if (cmdq)
         free(cmdq);
+
+    if (query)
+        query = nh_tr(query);
 
     if (got_cmdq) {
         *bufp = '\0';

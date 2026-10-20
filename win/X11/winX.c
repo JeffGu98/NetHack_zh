@@ -2173,7 +2173,7 @@ X11_display_file(const char *str, boolean complain)
     char line[LLEN];
 
     /* Use the port-independent file opener to see if the file exists. */
-    fp = dlb_fopen(str, RDTMODE);
+    fp = nh_dlb_fopen(str, RDTMODE);
     if (!fp) {
         if (complain)
             pline("Cannot open %s.  Sorry.", str);

@@ -190,16 +190,23 @@ vpline(const char *line, va_list the_args)
     }
 
     if (!strchr(line, '%')) {
-        /* format does not specify any substitutions; use it as-is */
+        /* format does not specify any substitutions; use it as-is.
+           Translate the whole sentence before measuring it. */
+        line = nh_tr(line);
         ln = (int) strlen(line);
     } else if (line[0] == '%' && line[1] == 's' && !line[2]) {
         /* "%s" => single string; skip format and use its first argument;
            unlike with the format, it is irrelevant whether the argument
            contains any percent signs */
         line = va_arg(the_args, const char *); /*VA_NEXT(line,const char *);*/
+        if (!line)
+            line = "";
+        line = nh_tr(line);
         ln = (int) strlen(line);
     } else {
-        /* perform printf() formatting */
+        /* Translate the format, then perform printf() formatting.
+           nh_trf keeps the original when conversions do not match. */
+        line = nh_trf(line);
         ln = vsnprintf(pbuf, sizeof pbuf, line, the_args);
         line = pbuf;
         /* note: 'ln' is number of characters attempted, not necessarily
@@ -564,7 +571,17 @@ vraw_printf(const char *line, va_list the_args)
 {
     char pbuf[BIGBUFSZ]; /* will be chopped down to BUFSZ-1 if longer */
 
-    if (strchr(line, '%')) {
+    if (!line)
+        line = "";
+    if (!strchr(line, '%')) {
+        line = nh_tr(line);
+    } else if (line[0] == '%' && line[1] == 's' && !line[2]) {
+        line = va_arg(the_args, const char *);
+        if (!line)
+            line = "";
+        line = nh_tr(line);
+    } else {
+        line = nh_trf(line);
         (void) vsnprintf(pbuf, sizeof(pbuf), line, the_args);
         line = pbuf;
     }

@@ -265,6 +265,7 @@ struct instance_flags {
     boolean partly_eaten_hack; /* extra flag for xname() used when it's called
                                 * indirectly so we can't use xname_flags() */
     boolean query_menu;    /* use a menu for yes/no queries */
+    uchar lang;            /* LANG_EN or LANG_ZH; presentation only */
     boolean remember_getpos; /* save getpos() positioning in do-again queue */
     boolean sad_feeling;   /* unseen pet is dying */
     boolean showdamage;    /* extra message reporting damage hero has taken */

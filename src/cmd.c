@@ -5519,6 +5519,9 @@ yn_function(
 
     iflags.last_msg = PLNMSG_UNKNOWN; /* most recent pline is clobbered */
 
+    if (query)
+        query = nh_tr(query);
+
     /* maximum acceptable length is QBUFSZ-1 */
     if (strlen(query) >= QBUFSZ) {
         /* caller shouldn't have passed anything this long */

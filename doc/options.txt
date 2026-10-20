@@ -30,6 +30,17 @@ To add an entirely new option macro type:
 
        The list of options is always kept in optlist.h in alphabetical order.
 
+       language (alias lang)
+           Compound option. Values: en (default), zh. Aliases: en_US,
+           english, zh_CN, chinese, 中文. Selects the language used for
+           player-visible text. Unknown values are rejected. A missing
+           Chinese catalog leaves the language set to zh and shows the
+           original English string for each untranslated message.
+           This is a presentation setting. It is not stored in save files.
+
+           OPTIONS=language:zh
+           OPTIONS=lang:en
+
        When the list of options is processed during the compile of options.c,
        the following will be automatically generated and included in
        options.c:

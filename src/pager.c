@@ -808,8 +808,10 @@ ia_checkfile(struct obj *otmp)
 {
     char itemnam[BUFSZ];
 
-    /* singular() of xname() of otmp is what "/i" looks up */
+    /* Encyclopedia keys stay English even when the display name is Chinese. */
+    nh_lang_hold(TRUE);
     Strcpy(itemnam, singular(otmp, xname));
+    nh_lang_hold(FALSE);
     return checkfile(itemnam, (struct permonst *) 0,
                      chkfilIaCheck | chkfilDontAsk, (char *) 0);
 }
@@ -843,7 +845,7 @@ checkfile(
     winid datawin = WIN_ERR;
     boolean res = FALSE;
 
-    fp = dlb_fopen(DATAFILE, "r");
+    fp = nh_dlb_fopen(DATAFILE, "r");
     if (!fp) {
         pline("Cannot open 'data' file!");
         return res;
@@ -2424,7 +2426,7 @@ whatdoes_help(void)
     char *p, buf[BUFSZ];
     winid tmpwin;
 
-    fp = dlb_fopen(KEYHELP, "r");
+    fp = nh_dlb_fopen(KEYHELP, "r");
     if (!fp) {
         pline("Cannot open \"%s\" data file!", KEYHELP);
         display_nhwindow(WIN_MESSAGE, TRUE);
@@ -2596,7 +2598,7 @@ dowhatdoes_core(char q, char *cbuf)
     }
     return 0;
 #if 0
-    fp = dlb_fopen(CMDHELPFILE, "r");
+    fp = nh_dlb_fopen(CMDHELPFILE, "r");
     if (!fp) {
         pline("Cannot open \"%s\" data file!", CMDHELPFILE);
         return 0;

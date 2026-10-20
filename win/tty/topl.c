@@ -258,11 +258,11 @@ update_topl(const char *bp)
 
     /* If there is room on the line, print message on same line */
     /* But messages like "You die..." deserve their own line */
-    n0 = strlen(bp);
+    n0 = nh_mbswidth(bp);
     if ((ttyDisplay->toplin == TOPLINE_NEED_MORE || skip)
         && cw->cury == 0
         /* room for --More-- */
-        && n0 + (int) strlen(gt.toplines) + 3 < min(CO - 8, TBUFSZ)
+        && n0 + nh_mbswidth(gt.toplines) + 3 < min(CO - 8, TBUFSZ)
         && (notdied = strncmp(bp, "You die", 7)) != 0) {
         Strcat(gt.toplines, "  ");
         Strcat(gt.toplines, bp);
@@ -282,19 +282,57 @@ update_topl(const char *bp)
     (void) strncpy(gt.toplines, bp, TBUFSZ);
     gt.toplines[TBUFSZ - 1] = 0;
 
-    for (tl = gt.toplines; n0 >= CO; ) {
+    /* Wrap on display columns. Never split a UTF-8 sequence. A space is
+       the preferred break; otherwise insert a newline on a codepoint
+       boundary so a Han character stays intact. */
+    for (tl = gt.toplines; nh_mbswidth(tl) >= CO; ) {
+        char *p = tl;
+        char *lastspace = (char *) 0;
+        int col = 0;
+
         otl = tl;
-        for (tl += CO - 1; tl != otl; --tl)
-            if (*tl == ' ')
+        while (*p && col < CO - 1) {
+            int span = 1;
+            int wid;
+            unsigned char c = (unsigned char) *p;
+            char tmp[8];
+
+            if ((c & 0xE0) == 0xC0 && (p[1] & 0xC0) == 0x80)
+                span = 2;
+            else if ((c & 0xF0) == 0xE0 && (p[1] & 0xC0) == 0x80
+                     && (p[2] & 0xC0) == 0x80)
+                span = 3;
+            else if ((c & 0xF8) == 0xF0 && (p[1] & 0xC0) == 0x80
+                     && (p[2] & 0xC0) == 0x80 && (p[3] & 0xC0) == 0x80)
+                span = 4;
+            memcpy(tmp, p, (size_t) span);
+            tmp[span] = '\0';
+            wid = nh_mbswidth(tmp);
+            if (wid < 1)
+                wid = 1;
+            if (col + wid >= CO)
                 break;
-        if (tl == otl) {
-            /* Eek!  A huge token.  Try splitting after it. */
-            tl = strchr(otl, ' ');
-            if (!tl)
-                break; /* No choice but to spit it out whole. */
+            if (*p == ' ')
+                lastspace = p;
+            p += span;
+            col += wid;
         }
-        *tl++ = '\n';
-        n0 = strlen(tl);
+        if (lastspace && lastspace > otl) {
+            tl = lastspace;
+            *tl++ = '\n';
+            continue;
+        }
+        if (p > otl && *p) {
+            size_t rest = strlen(p);
+
+            if ((size_t) (p - gt.toplines) + 1 + rest >= (size_t) TBUFSZ)
+                break;
+            memmove(p + 1, p, rest + 1);
+            *p = '\n';
+            tl = p + 1;
+            continue;
+        }
+        break;
     }
     if (!notdied) /* double negative => "You die"; avoid suppressing mesg */
         cw->flags &= ~WIN_STOP, skip = FALSE;
@@ -344,11 +382,56 @@ topl_putsym(char c)
 #endif
 }
 
+static int
+topl_utf8_span(const char *s)
+{
+    unsigned char c = (unsigned char) *s;
+
+    if ((c & 0xE0) == 0xC0 && (s[1] & 0xC0) == 0x80)
+        return 2;
+    if ((c & 0xF0) == 0xE0 && (s[1] & 0xC0) == 0x80 && (s[2] & 0xC0) == 0x80)
+        return 3;
+    if ((c & 0xF8) == 0xF0 && (s[1] & 0xC0) == 0x80 && (s[2] & 0xC0) == 0x80
+        && (s[3] & 0xC0) == 0x80)
+        return 4;
+    return 1;
+}
+
 void
 putsyms(const char *str)
 {
-    while (*str)
-        topl_putsym(*str++);
+    while (*str) {
+        int span, wid, i;
+        char tmp[8];
+        struct WinDesc *cw;
+
+        if ((unsigned char) *str < 0x80 || (span = topl_utf8_span(str)) == 1) {
+            topl_putsym(*str++);
+            continue;
+        }
+        memcpy(tmp, str, (size_t) span);
+        tmp[span] = '\0';
+        wid = nh_mbswidth(tmp);
+        if (wid < 1)
+            wid = 1;
+        cw = wins[WIN_MESSAGE];
+        /* A wide character that does not fit starts on the next line. */
+        if (ttyDisplay->curx > 0 && ttyDisplay->curx + wid >= CO)
+            topl_putsym('\n');
+        for (i = 0; i < span; i++) {
+#ifdef WIN32CON
+            (void) putchar(str[i]);
+#endif
+        }
+        ttyDisplay->curx += wid;
+        if (cw)
+            cw->curx = ttyDisplay->curx;
+#ifndef WIN32CON
+        for (i = 0; i < span; i++)
+            (void) putchar(str[i]);
+#endif
+        str += span;
+    }
 }
 
 static void

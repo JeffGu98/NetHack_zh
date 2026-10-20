@@ -1193,6 +1193,7 @@ decl_globals_init(void)
 
     ZERO(flags);
     ZERO(iflags);
+    iflags.lang = LANG_EN;
     ZERO(a11y);
     ZERO(disp);
     ZERO(u);

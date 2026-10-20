@@ -877,9 +877,9 @@ x_monnam(
         /* !is_animal excludes all Y; !mindless excludes Z, M, \' */
         boolean s_one = humanoid(mdat) && !is_animal(mdat) && !mindless(mdat);
 
-        Strcpy(buf, !augment_it ? "it"
-                    : (!do_hallu ? s_one : !rn2(2)) ? "someone"
-                      : "something");
+        Strcpy(buf, nh_tr(!augment_it ? "it"
+                            : (!do_hallu ? s_one : !rn2(2)) ? "someone"
+                              : "something"));
         return buf;
     }
 
@@ -910,6 +910,7 @@ x_monnam(
     } else {
         pm_name = mon_pmname(mtmp);
     }
+    pm_name = nh_tr(pm_name);
 
     /* Shopkeepers: use shopkeeper name.  For normal shopkeepers, just
      * "Asidonhopo"; for unusual ones, "Asidonhopo the invisible
@@ -939,10 +940,10 @@ x_monnam(
     if (adjective)
         Strcat(strcat(buf, adjective), " ");
     if (do_invis)
-        Strcat(buf, "invisible ");
+        Strcat(buf, nh_tr("invisible "));
     if (do_saddle && (mtmp->misc_worn_check & W_SADDLE) && !Blind
         && !Hallucination)
-        Strcat(buf, "saddled ");
+        Strcat(buf, nh_tr("saddled "));
     has_adjectives = (buf[0] != '\0');
 
     /* Put the actual monster name or type into the buffer now.
@@ -1008,9 +1009,12 @@ x_monnam(
 
     insertbuf2 = TRUE;
     buf2[0] = '\0'; /* lint suppression */
+    if (nh_lang_is_zh()
+        && (article == ARTICLE_THE || article == ARTICLE_A))
+        article = ARTICLE_NONE;
     switch (article) {
     case ARTICLE_YOUR:
-        Strcpy(buf2, "your ");
+        Strcpy(buf2, nh_tr("your "));
         break;
     case ARTICLE_THE:
         Strcpy(buf2, "the ");

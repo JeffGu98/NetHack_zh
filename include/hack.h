@@ -1580,6 +1580,8 @@ typedef uint32_t mmflags_nht;     /* makemon MM_ flags */
 #endif
 #endif
 
+#include "lang.h"
+
 #if !defined(RECOVER_C)
 
 #include "extern.h"

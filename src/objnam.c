@@ -615,6 +615,10 @@ xname_flags(
        needs to come after possibly overriding 'actualn' */
     if (!dn)
         dn = actualn;
+    /* Display names only. Wish parsing reads OBJ_NAME() directly and
+       stays in English. nh_tr() is a no-op while the language is English. */
+    actualn = nh_tr(actualn);
+    dn = nh_tr(dn);
 
     /*
      * clean up known when it's tied to oc_name_known, eg after AD_DRIN
@@ -671,14 +675,17 @@ xname_flags(
     switch (obj->oclass) {
     case AMULET_CLASS:
         if (!dknown)
-            Strcpy(buf, "amulet");
+            Strcpy(buf, nh_tr("amulet"));
         else if (typ == AMULET_OF_YENDOR || typ == FAKE_AMULET_OF_YENDOR)
             /* each must be identified individually */
             Strcpy(buf, known ? actualn : dn);
         else if (nn)
+            /* actual name already includes "amulet of ..." */
             Strcpy(buf, actualn);
         else if (un)
-            xcalled(buf, BUFSZ - PREFIX, "amulet", un);
+            xcalled(buf, BUFSZ - PREFIX, nh_tr("amulet"), un);
+        else if (nh_lang_is_zh())
+            Sprintf(buf, "%s%s", dn, nh_tr("amulet"));
         else
             Sprintf(buf, "%s amulet", dn);
         break;
@@ -831,38 +838,66 @@ xname_flags(
         break;
     case POTION_CLASS:
         if (dknown && obj->odiluted)
-            Strcpy(buf, "diluted ");
+            Strcpy(buf, nh_tr("diluted "));
         if (nn || un || !dknown) {
-            Strcat(buf, "potion");
-            if (!dknown)
+            if (!dknown) {
+                Strcat(buf, nh_tr("potion"));
                 break;
+            }
             if (nn) {
-                Strcat(buf, " of ");
-                if (typ == POT_WATER && bknown
-                    && (obj->blessed || obj->cursed)) {
-                    Strcat(buf, obj->blessed ? "holy " : "unholy ");
+                if (nh_lang_is_zh()) {
+                    if (typ == POT_WATER && bknown
+                        && (obj->blessed || obj->cursed))
+                        Strcat(buf, nh_tr(obj->blessed ? "holy " : "unholy "));
+                    Strcat(buf, actualn);
+                    Strcat(buf, nh_tr("potion"));
+                } else {
+                    Strcat(buf, "potion of ");
+                    if (typ == POT_WATER && bknown
+                        && (obj->blessed || obj->cursed)) {
+                        Strcat(buf, obj->blessed ? "holy " : "unholy ");
+                    }
+                    Strcat(buf, actualn);
                 }
-                Strcat(buf, actualn);
             } else {
+                Strcat(buf, nh_tr("potion"));
                 xcalled(buf, BUFSZ - PREFIX, "", un);
             }
+        } else if (nh_lang_is_zh()) {
+            Strcat(buf, dn);
+            Strcat(buf, nh_tr("potion"));
         } else {
             Strcat(buf, dn);
             Strcat(buf, " potion");
         }
         break;
     case SCROLL_CLASS:
-        Strcpy(buf, "scroll");
-        if (!dknown)
+        if (!dknown) {
+            Strcpy(buf, nh_tr("scroll"));
             break;
+        }
         if (nn) {
-            Strcat(buf, " of ");
-            Strcat(buf, actualn);
+            if (nh_lang_is_zh()) {
+                Strcpy(buf, actualn);
+                Strcat(buf, nh_tr("scroll"));
+            } else {
+                Strcpy(buf, "scroll of ");
+                Strcat(buf, actualn);
+            }
         } else if (un) {
+            Strcpy(buf, nh_tr("scroll"));
             xcalled(buf, BUFSZ - PREFIX, "", un);
         } else if (ocl->oc_magic) {
-            Strcat(buf, " labeled ");
-            Strcat(buf, dn);
+            if (nh_lang_is_zh()) {
+                Strcpy(buf, dn);
+                Strcat(buf, nh_tr("scroll"));
+            } else {
+                Strcpy(buf, "scroll labeled ");
+                Strcat(buf, dn);
+            }
+        } else if (nh_lang_is_zh()) {
+            Strcpy(buf, dn);
+            Strcat(buf, nh_tr("scroll"));
         } else {
             Strcpy(buf, dn);
             Strcat(buf, " scroll");
@@ -870,44 +905,61 @@ xname_flags(
         break;
     case WAND_CLASS:
         if (!dknown)
-            Strcpy(buf, "wand");
-        else if (nn)
-            Sprintf(buf, "wand of %s", actualn);
-        else if (un)
-            xcalled(buf, BUFSZ - PREFIX, "wand", un);
+            Strcpy(buf, nh_tr("wand"));
+        else if (nn) {
+            if (nh_lang_is_zh())
+                Sprintf(buf, "%s%s", actualn, nh_tr("wand"));
+            else
+                Sprintf(buf, "wand of %s", actualn);
+        } else if (un)
+            xcalled(buf, BUFSZ - PREFIX, nh_tr("wand"), un);
+        else if (nh_lang_is_zh())
+            Sprintf(buf, "%s%s", dn, nh_tr("wand"));
         else
             Sprintf(buf, "%s wand", dn);
         break;
     case SPBOOK_CLASS:
         if (typ == SPE_NOVEL) { /* 3.6 tribute */
             if (!dknown)
-                Strcpy(buf, "book");
+                Strcpy(buf, nh_tr("book"));
             else if (nn)
                 Strcpy(buf, actualn);
             else if (un)
-                xcalled(buf, BUFSZ - PREFIX, "novel", un);
+                xcalled(buf, BUFSZ - PREFIX, nh_tr("novel"), un);
+            else if (nh_lang_is_zh())
+                Sprintf(buf, "%s%s", dn, nh_tr("book"));
             else
                 Sprintf(buf, "%s book", dn);
             break;
             /* end of tribute */
         } else if (!dknown) {
-            Strcpy(buf, "spellbook");
+            Strcpy(buf, nh_tr("spellbook"));
         } else if (nn) {
-            if (typ != SPE_BOOK_OF_THE_DEAD)
-                Strcpy(buf, "spellbook of ");
-            Strcat(buf, actualn);
+            if (typ == SPE_BOOK_OF_THE_DEAD)
+                Strcpy(buf, actualn);
+            else if (nh_lang_is_zh())
+                Sprintf(buf, "%s%s", actualn, nh_tr("spellbook"));
+            else
+                Sprintf(buf, "spellbook of %s", actualn);
         } else if (un) {
-            xcalled(buf, BUFSZ - PREFIX, "spellbook", un);
-        } else
+            xcalled(buf, BUFSZ - PREFIX, nh_tr("spellbook"), un);
+        } else if (nh_lang_is_zh())
+            Sprintf(buf, "%s%s", dn, nh_tr("spellbook"));
+        else
             Sprintf(buf, "%s spellbook", dn);
         break;
     case RING_CLASS:
         if (!dknown)
-            Strcpy(buf, "ring");
-        else if (nn)
-            Sprintf(buf, "ring of %s", actualn);
-        else if (un)
-            xcalled(buf, BUFSZ - PREFIX, "ring", un);
+            Strcpy(buf, nh_tr("ring"));
+        else if (nn) {
+            if (nh_lang_is_zh())
+                Sprintf(buf, "%s%s", actualn, nh_tr("ring"));
+            else
+                Sprintf(buf, "ring of %s", actualn);
+        } else if (un)
+            xcalled(buf, BUFSZ - PREFIX, nh_tr("ring"), un);
+        else if (nh_lang_is_zh())
+            Sprintf(buf, "%s%s", dn, nh_tr("ring"));
         else
             Sprintf(buf, "%s ring", dn);
         break;
@@ -950,7 +1002,7 @@ xname_flags(
 
     /* if the name should be plural, do that now, after overflow check;
        it could make buf[] become shorter */
-    if (pluralize) {
+    if (pluralize && !nh_lang_is_zh()) {
         obufp = makeplural(buf);
         buf[0] = '\0'; /* replace the whole string */
         ConcUpdate(buf); /* reset buf_eos and bufspaceleft */
@@ -1696,10 +1748,15 @@ doname_base(
     if (!strncmp(prefix, "a ", 2)) {
         /* save current prefix, without "a "; might be empty */
         Strcpy(tmpbuf, prefix + 2);
-        /* set prefix[] to "", "a ", or "an " */
-        (void) just_an(prefix, *tmpbuf ? tmpbuf : bp);
-        /* append remainder of original prefix */
-        Strcat(prefix, tmpbuf);
+        if (nh_lang_is_zh()) {
+            /* Chinese display does not use English articles. */
+            Strcpy(prefix, tmpbuf);
+        } else {
+            /* set prefix[] to "", "a ", or "an " */
+            (void) just_an(prefix, *tmpbuf ? tmpbuf : bp);
+            /* append remainder of original prefix */
+            Strcat(prefix, tmpbuf);
+        }
     }
 
     /* show weight for items (debug tourist info);

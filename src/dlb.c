@@ -425,6 +425,10 @@ static const dlb_procs_t rsrc_dlb_procs = { rsrc_dlb_init,  rsrc_dlb_cleanup,
 static const dlb_procs_t *dlb_procs;
 static boolean dlb_initialized = FALSE;
 
+/* Defined in files.c. Not declared via hack.h here: dlb.c does not
+   include it, and lang.h needs boolean from that header. */
+extern void nh_lang_reload(void);
+
 boolean
 dlb_init(void)
 {
@@ -440,6 +444,15 @@ dlb_init(void)
             dlb_initialized = do_dlb_init();
     }
 
+    /* Options may have selected Chinese before the data library existed. */
+    nh_lang_reload();
+
+    return dlb_initialized;
+}
+
+boolean
+dlb_active(void)
+{
     return dlb_initialized;
 }
 

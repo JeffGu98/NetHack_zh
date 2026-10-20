@@ -1,0 +1,140 @@
+布尔选项和复合选项。方括号里是常见默认值。
+选项名必须用英文写进配置，例如 OPTIONS=language:zh 。
+游戏里按 O 可以查看这一份构建实际有哪些选项。
+只在开局前生效的项，进游戏后不能在菜单里改。
+语言可以在游戏里改，而且不写入存档。
+
+布尔选项：
+acoustics         角色能否听见声音
+armorstatus       额外显示穿着的护甲摘要
+autodescribe      说明光标下的地形
+autodig           拿着挖掘工具移动时自动挖
+autoopen          走进门时尝试打开
+autopickup        走过物品时自动捡起
+autoquiver        箭袋空着发射时，自动选一件合适的武器
+BIOS              允许使用 IBM ROM BIOS 调用
+blind             角色永久失明
+bones             允许读取遗骨文件
+clicklook         右键点击地图进行查看
+cmdassist         方向和其他命令出错时给出提示
+color             给屏幕上的东西上色
+confirm           攻击驯服或和平的怪物前先询问
+dark_room         看不见的地面用另一种颜色
+dropped_nopick    自动捡起时排除刚丢掉的东西
+eight_bit_tty     把 8 位字符直接送给终端
+extmenu           tty 和 curses 用菜单选择扩展命令
+female            已废弃。请用 gender:female
+fixinv            尽量让同一件物品保持同一个字母
+force_invmenu     选择背包物品时显示菜单
+goldX             按祝福状态筛选时，把金币算作未知
+help              使用 / 时打印能找到的全部说明
+herecmd_menu      点自己或身边一格时，列出一些可用命令
+hilite_pet        高亮显示宠物
+hilite_pile       高亮显示叠在一起的物品
+ignintr           忽略中断信号
+implicit_uncursed 能省略时，背包里不写“未诅咒”
+legacy            开局打印介绍
+lit_corridor      看得见的暗走廊显示成亮的
+lootabc           搜刮时用 a/b/c，而不用 o/i/b
+mail              启用邮件
+mention_decor     走过楼梯、祭坛、喷泉等时也提示
+mention_walls     撞墙时提示
+menu_overlay      菜单叠在画面上并靠右
+menucolors        用 MENUCOLOR 给菜单行上色
+nudist            开局不穿护甲
+null              允许把空字符送到终端
+pauper            开局没有任何随身物品
+perm_invent       用永久窗口显示背包
+pickup_stolen     偷来的东西不受 pickup_types 限制
+pickup_thrown     投出去的东西不受 pickup_types 限制
+price_quotes      未鉴定物品显示记得的标价
+pushweapon        换武器时把原来的武器放进副手
+quick_farsight    远看时光标移动得更快
+rawio             允许原始输入输出
+reroll            允许重掷开局物品
+rest_on_space     把空格当作休息键
+safe_pet          避免明知是宠物还去攻击
+safe_wait         休息或搜索前必须先按 m
+sanity_check      检查内部数据是否自洽
+showexp           显示累计经验
+showrace          用种族符号而不是职业符号表示你
+showvers          在状态栏显示版本号
+silent            不让终端响铃
+sortpack          背包里把同类物品排在一起
+sparkle           抵抗魔法时显示闪光
+standout          “--More--”用醒目模式
+status_updates    是否刷新状态栏
+terrainstatus     额外显示当前地形
+time              显示已经过的回合数
+tips              游戏中显示一些提示
+tombstone         死亡时打印墓碑
+toptenwin         在窗口里而不是标准输出打印十分榜
+travel            若界面支持，允许用鼠标点击赶路
+use_darkgray      黑色图块用粗体黑，而不用蓝
+use_inverse       高亮显示已探测到的怪物
+verbose           显示更多说明
+weaponstatus      额外显示当前武器
+whatis_menu       选择地图位置时显示菜单
+whatis_moveskip   查看时自动跳过哪些格子
+checkpoint        每次换层后保存进度，便于恢复
+news              启动时打印管理员的 news
+showscore         显示大约累计分数
+timed_delay       Unix 和 VMS 上用计时器做延迟
+altmeta           Unix 和 VMS 上把 Esc 加字符当作 Meta
+preload_tiles     启动时是否把图块预载入内存
+vt_tiledata       在输出里插入图块数据的转义标记
+vt_sounddata      在输出里插入声音数据的转义标记
+ascii_map         用地图字符。打开后关闭图块。用于 Qt、X11
+guicolor          curses 是否使用界面颜色
+hitpointbar       在状态栏用血条显示生命。需要状态高亮
+popup_dialog      用弹出对话框。curses、Qt、Windows
+selectsaved       启动时列出已有存档。tty 可选
+splash_screen     显示启动画面。curses、Qt、Windows
+tiled_map         用图块画地图。打开后关闭字符地图
+menu_tab_sep      菜单排版。不要改
+travel_debug      在地图上显示赶路算法的状态
+wizweight         背包里显示物品重量
+autounlock        开锁门或搜刮时，用哪一个键去开锁
+boulder           巨石使用的符号
+crash_email       填写崩溃报告时用的邮箱
+crash_name        填写崩溃报告时用的名字
+crash_urlmax      崩溃报告网址的最大长度
+disclose          结束时要公开哪些信息
+fruit             你爱吃的水果的名字
+hilite_status     状态栏高亮规则。可以写多条
+menustyle         多选物品的界面。Traditional、Combination、Full、Partial
+menu_objsyms      菜单里是否显示物品类别符号。0 到 5
+msg_window        ^P 如何回看消息。tty 与 curses 的取值不同
+number_pad        用字母还是数字键移动。-1 到 4
+packorder         背包里各类物品的默认符号顺序
+paranoid_confirmation哪些危险动作要额外确认
+perminv_mode      永久背包窗口的模式
+pickup_burden     自动捡起时是否考虑负重
+pickup_types      自动捡起哪些符号的物品
+pile_limit        走过地上物品时，多少件算作一堆
+runmode           跑动时多久刷新一次地图
+scores            分数榜显示哪些名次
+sortdiscoveries   已发现物品列表的排序
+sortloot          查看一堆物品时的排序
+sortvanquished    消灭记录的排序
+statushilites     状态栏高亮。也可写成 hilite_status
+statuslines       状态栏用 2 行还是 3 行
+suppress_alert    不再显示这个版本以前的提醒
+versinfo          showvers 显示哪些版本信息
+whatis_coord      查看时是否附带地图坐标
+whatis_filter     查看时过滤怪物、物品或地形
+align             开局阵营。lawful、neutral、chaotic 或 random
+catname           开局宠物是猫时的名字
+dogname           开局宠物是狗时的名字
+gender            开局性别。male、female 或 random
+horsename         开局宠物是小马时的名字
+msghistory        记住多少条最近的消息
+name              角色名。多人系统上默认是用户名
+pettype           偏好的宠物。cat、dog、horse、random 或 none
+playmode          普通、不计分的探索，或调试
+race              开局种族，例如 Human、Elf
+role              开局职业，例如 Barbarian、Valkyrie
+windowtype        界面。tty、curses、X11 等
+language          消息语言。en 英语，zh 简体中文。不写入存档
+symset            地图符号集的名字
+roguesymset       游侠关使用的符号集

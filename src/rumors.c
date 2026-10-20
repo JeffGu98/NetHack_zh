@@ -129,7 +129,7 @@ getrumor(
     if (gt.true_rumor_size < 0L) /* a previous try failed to open RUMORFILE */
         return rumor_buf;
 
-    rumors = dlb_fopen(RUMORFILE, "r");
+    rumors = nh_dlb_fopen(RUMORFILE, "r");
     if (rumors) {
         int count = 0;
         int adjtruth;
@@ -199,7 +199,7 @@ rumor_check(void)
     winid tmpwin = WIN_ERR;
     char *endp, line[BUFSZ], xbuf[BUFSZ], rumor_buf[BUFSZ];
 
-    rumors = (gt.true_rumor_size >= 0) ? dlb_fopen(RUMORFILE, "r") : 0;
+    rumors = (gt.true_rumor_size >= 0) ? nh_dlb_fopen(RUMORFILE, "r") : 0;
     if (rumors) {
         long ftell_rumor_start = 0L;
 
@@ -316,7 +316,7 @@ others_check(
     winid tmpwin = *winptr;
     int entrycount = 0;
 
-    fh = dlb_fopen(fname, "r");
+    fh = nh_dlb_fopen(fname, "r");
     if (fh) {
         if (tmpwin == WIN_ERR) {
             *winptr = tmpwin = create_nhwindow(NHW_TEXT);
@@ -502,7 +502,7 @@ get_rnd_text(
     int (*rng)(int),
     unsigned padlength)
 {
-    dlb *fh = dlb_fopen(fname, "r");
+    dlb *fh = nh_dlb_fopen(fname, "r");
 
     buf[0] = '\0';
     if (fh) {
@@ -650,7 +650,7 @@ outoracle(boolean special, boolean delphi)
     if (go.oracle_flg < 0 || (go.oracle_flg > 0 && svo.oracle_cnt == 0))
         return;
 
-    oracles = dlb_fopen(ORACLEFILE, "r");
+    oracles = nh_dlb_fopen(ORACLEFILE, "r");
 
     if (oracles) {
         if (go.oracle_flg == 0) { /* if this is the first outoracle() */
@@ -830,7 +830,7 @@ staticfn void
 init_CapMons(void)
 {
     unsigned pass;
-    dlb *bogonfile = dlb_fopen(BOGUSMONFILE, "r");
+    dlb *bogonfile = nh_dlb_fopen(BOGUSMONFILE, "r");
 
     if (CapMons) /* sanity precaution */
         free_CapMons();

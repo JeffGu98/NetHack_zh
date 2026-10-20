@@ -1,0 +1,733 @@
+# 固定译名。一行一条：英文<TAB>简体中文。长词在前由脚本排序。
+# 专名能译的译，不能整词译完的名字保持英文，不写半中半英。
+
+potion	药水
+scroll	卷轴
+wand	魔杖
+ring	戒指
+spellbook	魔法书
+amulet	护身符
+book	书
+novel	小说
+diluted 	稀释的
+holy 	圣
+unholy 	邪
+invisible 	隐形的
+saddled 	有鞍的
+your 	你的
+it	它
+someone	某人
+something	某物
+goblin	地精
+grid bug	电网虫
+cockatrice	鸡蛇
+chickatrice	小鸡蛇
+pyrolisk	火焰鸡蛇
+lichen	石菌
+dwarf	矮人
+elf	精灵
+orc	兽人
+blessed	祝福的
+cursed	诅咒的
+uncursed	未诅咒的
+
+giant ant	巨型蚂蚁
+killer bee	杀人蜂
+soldier ant	兵蚁
+fire ant	火蚁
+giant beetle	巨型甲虫
+queen bee	蜂后
+yellow jacket	黄蜂
+black pudding	黑布丁
+brown pudding	棕布丁
+green slime	绿软泥
+blue jelly	蓝果冻
+gelatinous cube	凝胶立方
+gray ooze	灰泥怪
+ochre jelly	赭果冻
+acid blob	酸滴
+quivering blob	颤动软块
+gelatinous cube	凝胶方块
+floating eye	浮眼
+freezing sphere	冰冻球
+flaming sphere	火焰球
+shocking sphere	电击球
+gas spore	气孢子
+shrieker	尖叫菌
+violet fungus	紫菌
+giant rat	巨型老鼠
+rabid rat	狂鼠
+sewer rat	下水道老鼠
+rock mole	岩鼹
+woodchuck	土拨鼠
+jackal	豺
+fox	狐狸
+coyote	郊狼
+werejackal	豺狼人
+little dog	小狗
+dog	狗
+large dog	大狗
+kitten	小猫
+housecat	家猫
+large cat	大猫
+jaguar	美洲豹
+wolf	狼
+werewolf	狼人
+warg	座狼
+winter wolf	冬狼
+hell hound	地狱猎犬
+winter wolf cub	冬狼幼崽
+hell hound pup	地狱猎犬幼崽
+dingo	野犬
+pony	小马
+horse	马
+warhorse	战马
+rothe	洛斯兽
+mumak	姆玛克
+leocrotta	狼獾兽
+baluchitherium	俾路支兽
+mastodon	乳齿象
+newt	蝾螈
+gecko	壁虎
+iguana	鬣蜥
+baby crocodile	小鳄鱼
+lizard	蜥蜴
+chameleon	变色龙
+crocodile	鳄鱼
+gargoyle	石像鬼
+winged gargoyle	飞翼石像鬼
+hobbit	霍比特人
+dwarf	矮人
+dwarf lord	矮人领主
+dwarf king	矮人王
+gnome	侏儒
+gnome lord	侏儒领主
+gnome king	侏儒王
+hobgoblin	大地精
+goblin	地精
+goblin king	地精王
+orc	兽人
+hill orc	丘陵兽人
+mordor orc	魔多兽人
+uruk-hai	乌鲁克族
+orc shaman	兽人萨满
+orc-captain	兽人队长
+bugbear	熊地精
+ogre	食人魔
+ogre lord	食人魔领主
+ogre king	食人魔王
+troll	巨魔
+rock troll	岩石巨魔
+water troll	水巨魔
+ice troll	冰巨魔
+ettin	双头巨人
+stalker	潜行者
+black naga hatchling	黑娜迦幼体
+black naga	黑娜迦
+red naga hatchling	红娜迦幼体
+red naga	红娜迦
+golden naga hatchling	金娜迦幼体
+golden naga	金娜迦
+guardian naga hatchling	守护娜迦幼体
+guardian naga	守护娜迦
+gray unicorn	灰独角兽
+white unicorn	白独角兽
+black unicorn	黑独角兽
+pony	小马
+fog cloud	雾云
+dust vortex	尘旋涡
+ice vortex	冰旋涡
+energy vortex	能量旋涡
+steam vortex	蒸汽旋涡
+fire vortex	火旋涡
+baby long worm	幼长蠕虫
+baby purple worm	幼紫蠕虫
+long worm	长蠕虫
+purple worm	紫蠕虫
+grid bug	电网虫
+xan	闪蝶
+yellow light	黄光
+zruty	兹鲁蒂
+couatl	羽蛇
+Aleax	阿莱克斯
+Angel	天使
+ki-rin	麒麟
+Archon	执政官
+bat	蝙蝠
+giant bat	巨型蝙蝠
+raven	渡鸦
+vampire bat	吸血蝙蝠
+plains centaur	平原半人马
+forest centaur	森林半人马
+mountain centaur	山地半人马
+baby gray dragon	幼灰龙
+baby silver dragon	幼银龙
+baby red dragon	幼红龙
+baby white dragon	幼白龙
+baby orange dragon	幼橙龙
+baby black dragon	幼黑龙
+baby blue dragon	幼蓝龙
+baby green dragon	幼绿龙
+baby yellow dragon	幼黄龙
+gray dragon	灰龙
+silver dragon	银龙
+red dragon	红龙
+white dragon	白龙
+orange dragon	橙龙
+black dragon	黑龙
+blue dragon	蓝龙
+green dragon	绿龙
+yellow dragon	黄龙
+water elemental	水元素
+fire elemental	火元素
+earth elemental	土元素
+air elemental	气元素
+woodland-elf	林精灵
+green-elf	绿精灵
+grey-elf	灰精灵
+elf-lord	精灵领主
+elf-lady	精灵贵妇
+Elvenking	精灵王
+Elvenqueen	精灵后
+doppelganger	变形怪
+shopkeeper	店主
+guard	守卫
+prisoner	囚犯
+Oracle	神谕
+aligned priest	阵营祭司
+high priest	高阶祭司
+soldier	士兵
+sergeant	军士
+lieutenant	中尉
+captain	上尉
+watchman	守夜人
+watch captain	守夜队长
+kitten	小猫
+little dog	小狗
+pony	小马
+acid blob	酸滴
+giant	巨人
+stone giant	石巨人
+hill giant	山巨人
+fire giant	火巨人
+frost giant	霜巨人
+storm giant	风暴巨人
+titan	泰坦
+minotaur	米诺陶
+jabberwock	贾巴沃克
+balrog	炎魔
+hell hound	地狱猎犬
+vampire	吸血鬼
+vampire lord	吸血鬼领主
+Vlad the Impaler	穿刺者弗拉德
+vampire mage	吸血鬼法师
+ghost	鬼魂
+shade	幽影
+water demon	水恶魔
+horned devil	角魔
+succubus	魅魔
+incubus	梦魔
+erinys	厄里倪厄斯
+barbed devil	倒钩魔
+marilith	六臂蛇魔
+vrock	弗洛克
+hezrou	赫兹鲁
+bone devil	骨魔
+ice devil	冰魔
+nalfeshnee	纳菲尼斯
+pit fiend	深渊恶魔
+sandestin	沙德斯坦
+balrog	炎魔
+demon	恶魔
+imp	小恶魔
+lemure	勒穆尔
+manes	游魂
+homunculus	人工生命
+djinni	灯神
+salamander	火蜥蜴
+goblin	地精
+kobold	狗头人
+large kobold	大狗头人
+kobold lord	狗头人领主
+kobold shaman	狗头人萨满
+rock piercer	岩锥怪
+iron piercer	铁锥怪
+glass piercer	玻璃锥怪
+giant spider	巨型蜘蛛
+cave spider	洞穴蜘蛛
+scorpion	蝎子
+giant beetle	巨型甲虫
+killer bee	杀人蜂
+queen bee	蜂后
+yellow jacket	胡蜂
+giant ant	巨型蚂蚁
+soldier ant	兵蚁
+fire ant	火蚁
+giant beetle	巨型甲虫
+lurker above	上方潜伏者
+trapper	陷阱怪
+wumpus	乌姆帕斯
+giant mimic	巨型拟形怪
+large mimic	大拟形怪
+small mimic	小拟形怪
+shark	鲨鱼
+giant eel	巨型鳗鱼
+electric eel	电鳗
+kraken	海妖
+piranha	食人鱼
+water nymph	水仙女
+wood nymph	树仙女
+mountain nymph	山仙女
+wizard of Yendor	耶嫩巫师
+Wizard of Yendor	耶嫩巫师
+Medusa	美杜莎
+Croesus	克罗伊斯
+Minotaur	米诺陶
+Oracle	神谕
+Asmodeus	阿斯莫德
+Baalzebub	巴力西卜
+Orcus	奥迦斯
+Juiblex	朱比莱克斯
+Demogorgon	狄摩高根
+Yeenoghu	伊诺胡
+Geryon	格里昂
+Dispater	迪斯帕特
+Death	死神
+Pestilence	瘟疫
+Famine	饥荒
+mail daemon	邮件使者
+nurse	护士
+shopkeeper	店主
+guide	向导
+apprentice	学徒
+acolyte	侍僧
+attendant	随从
+neanderthal	尼安德特人
+high priest	高阶祭司
+student	学生
+chieftain	酋长
+page	侍从
+abbot	方丈
+roshi	老师
+warrior	武士
+ninja	忍者
+thug	暴徒
+rogue	盗贼
+samurai	武士
+knight	骑士
+priest	祭司
+priestess	女祭司
+healer	医者
+barbarian	野蛮人
+valkyrie	女武神
+tourist	游客
+archeologist	考古学家
+cavewoman	穴居女人
+caveman	穴居人
+ranger	游侠
+wizard	巫师
+monk	僧侣
+human	人类
+elf	精灵
+dwarf	矮人
+gnome	侏儒
+orc	兽人
+hobbit	霍比特人
+
+short sword	短剑
+long sword	长剑
+broadsword	阔剑
+scimitar	弯刀
+saber	军刀
+club	木棒
+mace	钉头锤
+morning star	晨星锤
+flail	连枷
+war hammer	战锤
+quarterstaff	长棍
+spear	矛
+javelin	标枪
+trident	三叉戟
+dagger	匕首
+athame	仪式匕首
+scalpel	手术刀
+knife	小刀
+stiletto	细剑
+axe	斧
+battle-axe	战斧
+bow	弓
+elven bow	精灵弓
+orcish bow	兽人弓
+yumi	和弓
+sling	投石索
+crossbow	弩
+arrow	箭
+elven arrow	精灵箭
+orcish arrow	兽人箭
+ya	和箭
+silver arrow	银箭
+crossbow bolt	弩箭
+dart	飞镖
+shuriken	手里剑
+boomerang	回旋镖
+bullwhip	长鞭
+aklys	飞斧
+flail	连枷
+unicorn horn	独角兽角
+worm tooth	蠕虫牙
+crysknife	晶刃
+pick-axe	鹤嘴锄
+grappling hook	抓钩
+lance	长枪
+
+elven dagger	精灵匕首
+orcish dagger	兽人匕首
+silver dagger	银匕首
+dwarvish mattock	矮人鹤嘴锄
+dwarvish short sword	矮人短剑
+elven short sword	精灵短剑
+orcish short sword	兽人短剑
+dwarvish spear	矮人矛
+elven spear	精灵矛
+orcish spear	兽人矛
+dwarvish mattock	矮人鹤嘴锄
+runesword	符文剑
+katana	武士刀
+tsurugi	剑
+two-handed sword	双手剑
+samurai sword	武士刀
+broadsword	阔剑
+
+leather armor	皮甲
+studded leather armor	镶钉皮甲
+ring mail	环甲
+scale mail	鳞甲
+chain mail	锁子甲
+banded mail	板条甲
+plate mail	板甲
+dragon scale mail	龙鳞甲
+elven leather helm	精灵皮盔
+orcish helm	兽人头盔
+dwarvish iron helm	矮人铁盔
+fedora	软呢帽
+cornuthaum	巫师帽
+dunce cap	笨蛋帽
+dented pot	瘪锅
+elven cloak	精灵斗篷
+orcish cloak	兽人斗篷
+dwarvish cloak	矮人斗篷
+oilskin cloak	油布斗篷
+robe	长袍
+alchemy smock	炼金罩衫
+leather cloak	皮斗篷
+leather gloves	皮手套
+gauntlets of power	力量护手
+gauntlets of fumbling	笨拙护手
+gauntlets of dexterity	敏捷护手
+low boots	矮靴
+high boots	高靴
+iron shoes	铁鞋
+elven boots	精灵靴
+kicking boots	踢击靴
+fumble boots	笨拙靴
+levitation boots	浮空靴
+jumping boots	跳跃靴
+speed boots	速度靴
+water walking boots	水上行走靴
+hiking boots	远足靴
+small shield	小盾
+elven shield	精灵盾
+uruk-hai shield	乌鲁克盾
+orcish shield	兽人盾
+large shield	大盾
+dwarvish roundshield	矮人圆盾
+shield of reflection	反射盾
+
+healing	治疗
+extra healing	强效治疗
+full healing	完全治疗
+gain level	升级
+gain energy	获得能量
+gain ability	获得能力
+restore ability	恢复能力
+confusion	混乱
+hallucination	幻觉
+blindness	失明
+sleeping	睡眠
+paralysis	麻痹
+speed	加速
+levitation	浮空
+invisibility	隐身
+see invisible	看见隐形
+monster detection	探测怪物
+object detection	探测物品
+enlightenment	启蒙
+booze	烈酒
+sickness	疾病
+fruit juice	果汁
+water	水
+acid	酸液
+oil	油
+poison	毒药
+amnesia	失忆
+polymorph	变形
+lightning	闪电
+fire	火焰
+cold	寒冷
+sleep	睡眠
+death	死亡
+magic missile	魔法飞弹
+dig	挖掘
+fireball	火球
+cone of cold	寒冰锥
+remove curse	移除诅咒
+create monster	创造怪物
+identify	鉴定
+light	光亮
+nothing	无
+wishing	许愿
+secret door detection	探测密门
+teleport away	传送离开
+make invisible	使隐形
+slow monster	减速怪物
+haste monster	加速怪物
+cancellation	消除魔法
+probing	探查
+opening	开门
+locking	上锁
+undead turning	驱散不死
+draining	吸取
+polypiling	堆叠变形
+punishment	惩罚
+charging	充能
+genocide	灭族
+scare monster	恐吓怪物
+taming	驯服
+confusion	混乱
+digging	挖掘
+gold detection	探测黄金
+food detection	探测食物
+magic mapping	魔法地图
+fire	火焰
+sleep	睡眠
+enchant weapon	附魔武器
+enchant armor	附魔护甲
+remove curse	解除诅咒
+destroy armor	摧毁护甲
+confuse monster	混乱怪物
+scare monster	恐吓怪物
+teleportation	传送
+create monster	创造怪物
+create familiar	创造魔宠
+clairvoyance	透视
+charm monster	魅惑怪物
+magic mapping	魔法地图
+cause fear	造成恐惧
+cure blindness	治疗失明
+haste self	自我加速
+detect monsters	探测怪物
+detect food	探测食物
+cure sickness	治疗疾病
+extra healing	强效治疗
+stone to flesh	石化转肉
+restore ability	恢复能力
+invisibility	隐身
+detect treasure	探测财宝
+detect unseen	探测隐形
+levitation	浮空
+wizard lock	巫师锁
+dig	挖掘
+magic missile	魔法飞弹
+fireball	火球
+knock	敲开
+wizard lock	巫师之锁
+force bolt	力矢
+sleep	睡眠
+confuse monster	混乱怪物
+slow monster	减速怪物
+jumping	跳跃
+haste self	自我加速
+cure wounds	治疗伤势
+cure blindness	治疗失明
+protection	防护
+resist poison	抵抗毒素
+resist sleep	抵抗睡眠
+endure cold	忍受寒冷
+endure heat	忍受灼热
+clairvoyance	透视
+detect unseen	探测隐形
+identify	鉴定
+remove curse	解除诅咒
+turn undead	驱散不死
+teleport away	传送离开
+create familiar	创造魔宠
+cancellation	消除魔法
+finger of death	死亡一指
+
+adornment	装饰
+gain strength	获得力量
+gain constitution	获得体质
+increase accuracy	提高命中
+increase damage	提高伤害
+protection	防护
+regeneration	再生
+searching	搜索
+stealth	潜行
+sustain ability	维持能力
+levitation	浮空
+hunger	饥饿
+aggravate monster	激怒怪物
+conflict	冲突
+warning	警告
+teleportation	传送
+teleport control	传送控制
+polymorph control	变形控制
+shock resistance	电击抗性
+fire resistance	火焰抗性
+cold resistance	寒冷抗性
+poison resistance	毒素抗性
+see invisible	看见隐形
+invisibility	隐身
+free action	自由行动
+slow digestion	延缓消化
+protection from shape changers	防止变形
+
+purple	紫色
+red	红色
+blue	蓝色
+green	绿色
+yellow	黄色
+orange	橙色
+black	黑色
+white	白色
+brown	棕色
+gray	灰色
+grey	灰色
+pink	粉色
+cyan	青色
+magenta	品红
+gold	金色
+silver	银色
+wooden	木色
+granite	花岗石
+opal	蛋白石
+clay	黏土
+coral	珊瑚
+agate	玛瑙
+moonstone	月长石
+tiger eye	虎眼石
+emerald	祖母绿
+ruby	红宝石
+sapphire	蓝宝石
+diamond	钻石
+jade	玉
+turquoise	绿松石
+citrine	黄水晶
+aquamarine	海蓝宝石
+amber	琥珀
+topaz	黄玉
+jet	黑玉
+garnet	石榴石
+amethyst	紫水晶
+fluorite	萤石
+obsidian	黑曜石
+glass	玻璃
+crystal	水晶
+hexagonal	六边形
+circular	圆形
+oval	椭圆
+square	方形
+triangular	三角形
+concave	凹面
+spherical	球形
+pyramidal	锥形
+octagonal	八边形
+cubical	立方
+perforated	穿孔
+brilliant blue	亮蓝
+sky blue	天蓝
+dark green	深绿
+purple-red	紫红
+swirly	旋涡纹
+bubbly	冒泡
+milky	乳白
+fizzy	起泡
+smoky	烟色
+cloudy	浑浊
+effervescent	冒泡
+murky	浑浊
+puissant	强力
+clear	清澈
+brown	棕色
+puce	紫褐
+tan	棕褐
+plaid	格子
+checkered	棋盘格
+mottled	斑驳
+spotted	斑点
+glowing	发光
+shimmering	微光
+glittering	闪烁
+shiny	闪亮
+dull	暗淡
+stained	污渍
+dusty	积灰
+wrinkled	起皱
+velvet	天鹅绒
+leather	皮革
+paper	纸
+parchment	羊皮纸
+vellum	犊皮纸
+ragged	破旧
+hardcover	精装
+paperback	平装
+canvas	帆布
+ebony	乌木
+maple	枫木
+pine	松木
+oak	橡木
+redwood	红木
+balsa	轻木
+copper	铜
+iron	铁
+brass	黄铜
+bronze	青铜
+platinum	铂
+aluminum	铝
+zinc	锌
+iridium	铱
+uranium	铀
+runed	符文
+ivory	象牙
+bone	骨
+wire	金属丝
+twisted	扭曲
+steel	钢
+gold	金
+silver	银
+engagement	订婚戒
+wooden	木质
+granite	花岗岩
+
+Done.	完成。
+You hit %s.	你击中了%s。
+You miss %s.	你没击中%s。
+You kill %s!	你杀死了%s！
+You die...	你死了……
+Welcome to NetHack!	欢迎来到 NetHack！
+Really quit?	真的退出？
+Bye-bye.	再见。
+Never mind.	算了。
+You can't go there.	你不能去那里。
+You see here %s.	你看见这里有%s。
+You see no objects here.	你在这里没看见物品。
+You find no objects here.	你在这里没找到物品。
+In your pack you have	你的背包里有
+You have no objects.	你没有物品。
+%s - %s	%s - %s
+Status	状态
+Inventory	物品栏
+English	英语
+Simplified Chinese	简体中文
+# 状态栏缩写（Blind/Blnd/Bl、Hungry、Satiated 等）按字节宽度排在固定格子里。
+# 汉字的显示宽度超过这些缩写的列预算，所以状态栏上保留英文。

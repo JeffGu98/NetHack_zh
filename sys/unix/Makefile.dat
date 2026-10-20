@@ -84,6 +84,14 @@ GEM_RSC.RSC:
 	# cp ../win/gem/GEM_RSC.RSC GEM_RSC.RSC
 	$(UUDECODE) ../win/gem/gem_rsc.uu
 
+# Chinese random text is packed from locale/zh/src. The outputs share
+# the gitignore names of the English makedefs files, so they are generated.
+locale/zh/rumors locale/zh/oracles locale/zh/engrave locale/zh/epitaph: \
+		locale/zh/src/rumors.tru locale/zh/src/rumors.fal \
+		locale/zh/src/oracles.txt locale/zh/src/engrave.txt \
+		locale/zh/src/epitaph.txt ../util/pack_locale.py
+	python3 ../util/pack_locale.py
+
 nhdat: $(DATDLB)
 	( LC_ALL=C ; ../util/dlb cf nhdat $(DATDLB) )
 
@@ -121,6 +129,7 @@ clean:
 
 spotless: clean
 	-rm -f nhdat $(VARDAT) \
+		locale/zh/rumors locale/zh/oracles locale/zh/engrave locale/zh/epitaph \
 		x11tiles pet_mark.xbm pilemark.xbm rip.xpm mapbg.xpm \
 		GEM_RSC.RSC title.img NetHack.ad \
 		nhsplash.xpm nhtiles.bmp beostiles
